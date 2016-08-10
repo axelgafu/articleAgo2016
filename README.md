@@ -23,4 +23,6 @@ essence as to be considered a meaningful resource for colloquial Spanish?
 |Submit draft to CIINDET|Ago/19/16|
 
 
-Article to be sent to [Congreso Internacional sobre Innovación y Desarrollo Tecnológico 2016](http://www.ciindet.org/)
+Article to be sent to [Mexican International Conference on Computer Science 2016 (ENC 2016)](http://smcc.mx)
+November 14-16, 2016.
+Chihuahua, Chihuahua, México.
