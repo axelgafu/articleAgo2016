@@ -21,6 +21,7 @@ essence as to be considered a meaningful resource for colloquial Spanish?
 |Submit first draft to review|Ago/13/16|
 |Submit second draft to review|Ago/17/16|
 |Submit draft to SMCC|Ago/19/16|
+|Final Submit to SMCC|Sep/16/16|
 
 
 Article to be sent to [Mexican International Conference on Computer Science 2016 (ENC 2016)](http://smcc.mx) 
