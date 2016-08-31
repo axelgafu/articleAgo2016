@@ -19,7 +19,6 @@ import sys, os
 from abydos.phonetic import bmpm, russell_index, dm_soundex, metaphone
 from soundex import getInstance
 from metaphone.metaphone import doublemetaphone
-from util import phonetic_spanish_code_colombian_algorithm
 from collections import Counter
 import os
 import shutil
@@ -90,17 +89,6 @@ def generate_soundex(word):
         return [""]
 #-------------------------------------------------------------------------------
 # End of Function
-
-#-------------------------------------------------------------------------------
-def generate_phonetic_spanish(word):
-    ## Colombian
-    if isinstance(word,unicode):
-        word=word.encode('UTF-8')
-    
-    return [phonetic_spanish_code_colombian_algorithm(word)]
-#-------------------------------------------------------------------------------
-# End of Function
-
 
 #-------------------------------------------------------------------------------
 def generate_nysiis(word):
