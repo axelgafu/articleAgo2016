@@ -39,7 +39,7 @@ def carga_tabla_phon(filename):
     return tablename
 #-------------------------------------------------------------------------------
 # End of Function
-dic = carga_tabla_phon('rae_corpus_v03_phonspanish_colombian.csv')
+dic = carga_tabla_phon('spanish_dict.csv')
 
 #-------------------------------------------------------------------------------
 def correct(word, dic, phonetic_algorithm):
@@ -190,7 +190,7 @@ def list_execute_phonetic_algorithm(word, package, function_name):
                result=str(result)
             else:
                 if not isinstance(result,unicode):
-                    result=unicode(result, 'UTF-8', errors='ignore')
+                    result=unicode(str(result), 'UTF-8', errors='ignore')
             
             result=result.split(' ')
         # End-If: Return type
@@ -244,9 +244,13 @@ def generate_phonetic_codes(infilename, package, function_name):
 
     os.mkdir(out_dir_name)
     #print "Generating new phonetic codes..."
-    with codecs.open(infilename, 'rU', encoding='UTF-8', errors='ignore') as lineas:
+    #with codecs.open(infilename, 'rU', encoding='UTF-8', errors='ignore') as lineas:
+    with open(infilename, 'rU') as lineas:
             for row in csv.reader(lineas, delimiter=','):
                 #row=unicode(row, "UTF-8")
+                if not isinstance(row[0], unicode):
+                    row[0]=unicode(row[0],'UTF-8')
+                
                 row[0]=row[0].replace(u'A',u'á')
                 row[0]=row[0].replace(u'E',u'é')
                 row[0]=row[0].replace(u'I',u'í')
@@ -497,6 +501,7 @@ phonetic_algorithms_list=[
     {'pkg':abydos.phonetic,'name':'double_metaphone'},   # Double Metaphone
     {'pkg':abydos.phonetic,'name':'caverphone'},   # Caverphone
     {'pkg':abydos.phonetic,'name':'alpha_sis'},    # Alpha Search Inquiry System
+    {'pkg':abydos.phonetic,'name':'caverphone'},   # Caverphone
     {'pkg':abydos.phonetic,'name':'fuzzy_soundex'},# Fuzzy Soundex
     {'pkg':abydos.phonetic,'name':'phonex'},       # Phonex
     {'pkg':abydos.phonetic,'name':'phonem'},       # Phonem
@@ -509,14 +514,14 @@ phonetic_algorithms_list=[
 
 if __name__ == '__main__':
     for phonetic_algorithm in phonetic_algorithms_list:
-        generate_phonetic_codes("rae_corpus_v03.csv", phonetic_algorithm['pkg'], phonetic_algorithm['name'])
+        #generate_phonetic_codes("rae_corpus_v03.csv", phonetic_algorithm['pkg'], phonetic_algorithm['name'])
+        generate_phonetic_codes("spanish_dict.csv", phonetic_algorithm['pkg'], phonetic_algorithm['name'])
     
-        collect_data('rae_corpus_v03_phonspanish_generate_' + phonetic_algorithm['name'] + '.csv',
+        #collect_data('rae_corpus_v03_phonspanish_generate_' + phonetic_algorithm['name'] + '.csv',
+        collect_data('spanish_dict_' + phonetic_algorithm['name'] + '.csv',
                      'results_' + phonetic_algorithm['name'] + '.csv', 
                      phonetic_algorithm['pkg'], phonetic_algorithm['name'] )
     # End-For: Algorithms list.
-    
-    
     
 
 
