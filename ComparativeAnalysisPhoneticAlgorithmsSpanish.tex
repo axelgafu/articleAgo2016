@@ -111,11 +111,11 @@ Something had to be done in order to properly classify or to correctly index
 the names of all those people.\\
 
 One of the first algorithms used for this purpose is called Soundex. It was 
-developed by Robert Russell and Margaret Odell in 1918\cite{ref:28}. A variation of that
+developed by Robert Russell and Margaret Odell in 1918\cite{ref:28}\cite{ref:33}. A variation of that
 algorithm called American Soundex was used in the US census of 1930\cite{ref:01}\cite{ref:02}\cite{ref:25}. 
 % American Soundex was referred to as Miracode: http://west-penwith.org.uk/misc/soundex.htm
 It was used for a while until it was realized it was not helping enough for foreign names. Then
-some variants were used: e.g.: Daitch-Mokotoff Soundex to
+some variants were used: e.g.: Daitch-Mokotoff Soundex\cite{ref:38} to
 mention a couple of them. More phonetic algorithms were created later, e.g.: 
 NYIIS\cite{ref:29}, Metaphone\cite{ref:29}, Beider-Morse Phonetic Matching\cite{ref:30}, Koelner Phonetik, MRA, Caverphone\cite{ref:29}
 and PhoneticSpanish to mention some of them.\\
@@ -220,41 +220,73 @@ There are some phonetic algorithms that has been created. Some of them were desi
 assuming an English context. Some others where extended to languages other than English. Next 
 sections will discuss some of the phonetic algorithms that has been used in the past.
  
-\subsection{Soundex}
-It was used in 1930 during retrospective analysis of US census of 1890-1920\cite{ref:01}. It was used to 
-index given names based on their pronunciation in English. Each Soundex code consist of a letter and
-three digits; e.g. W­252. The letter us the initial of the surname. The digits are assigned based on the 
-subsequent letters in the surname. The objective is to build a code of four elements; zeros are padded
-as required\cite{ref:02}\cite{ref:24}.
+\begin{description}
+\item[Soundex]
+It was used in 1930 during retrospective analysis of US census of 1890-1920\cite{ref:01}.  The initial 
+version of the system was patented by Margaret Odell and Robert Russell in 1918 as U.S. Pat. No. 1,261,167\cite{ref:33}and 1,435,663 (1922)\cite{ref:34}.
+It was used to index given names based on their pronunciation in English. Each Soundex code consist 
+of a letter and three digits; e.g. W­252. The letter us the initial of the surname. The digits are assigned 
+based on the subsequent letters in the surname. The objective is to build a code of four elements; 
+zeros are padded as required\cite{ref:02}\cite{ref:24}.
+
+The so-called ?American Soundex? system is an improvement on Russell's invention, and was 
+used by the National Archives and Record Administration to index the 1880, 1890, 1900, 1910, 
+and 1920 U.S. Censuses\cite{ref:33}.
+
+With some minor changes to the weighting scheme used, Soundex has been applied to languages 
+other than English\cite{ref:34}\cite{ref:35}.
+
+\item[Daitch-Mokotoff Soundex System]
+This variation of Soundex was Motivated by the poor results when dealing with Slavic and Yiddish 
+surnames. Its creators were the jewish genealogist Gary Mokotoff and Ranndy Daitch from Jewish 
+Genealogical Society. In 1985 Mokotoff indexed the names of 28,000 people that legally changed 
+their names while living in Palestine during 1921 through 1948. The majority of them were Jewish 
+with germanic or slavic names. During that exercise there were names that sounded the same. 
+However, Soundex did not generate the same phonetic code; e.g. Moskowitz y Moskovitz\cite{ref:08}
+\cite{ref:32}\cite{ref:24}.
+	
+The following examples were obtained from\cite{ref:39}:
+\begin{table}[H]
+\caption{Phonetic Algorithms: Descriptive Statistics} \label{tab:02}
+\centering
+\begin{tabular}{ lccccc }\\
+\toprule[1.5pt]
+	\bf Surname & \bf American Soundex & \bf D?M Soundex \\ \hline
+         Peters	&P362	&739400, 734000 \\
+         Peterson	&P362	&739460, 734600 \\
+         Moskowitz &M232	&645740 \\
+         Moskovitz	 &M213	&645740 \\
+         Auerbach	&A612	&097500, 097400 \\
+         Uhrbach	&U612	&097500, 097400 \\
+         Jackson	&J250	&154600, 454600, 145460, 445460 \\
+         Jackson-Jackson	&J252	&154664, 454664, 145466, 445466, 154646, 454646, 145464, 445464 \\
+\bottomrule[1.25pt]
+\end{tabular}
+\label{default}
+\end{table}%
 
 
-\subsection{NYSIIS (New York State Identification and Intelligence System)}
+
+
+\item[NYSIIS (New York State Identification and Intelligence System)]
 Developed circa 1970 after several attempts to improve the Soundex algorithm. NYSIIS creates a 
 string of up to six characters. See more details in \cite{ref:17}\cite{ref:24}.
 
 
-\subsection{Daitch-Mokotoff Soundex System}
-Created by Ranndy Daitch and Gary Mokotoff from Jewish Genealogical Society. in 1985 Mokotoff 
-indexed the names of 28,000 people that legally changed their names while living in Palestine during 
-1921 through 1948. The majority of them were Jewish with germanic or slavic names. During that
-exercise there were names that sounded the same. However, Soundex did not generate the same
-phonetic code; e.g. Moskowitz y Moskovitz\cite{ref:08}\cite{ref:02}\cite{ref:24}.
-
-
-\subsection{Metaphone}
+\item[Metaphone]
 It was published in 1990 as an enhancement to Soundex. It was designed for English language.
 This phonetic algorithm has been used to perform genealogical searches. There are versions of
 this algorithm implemented for high level languages like: Pythoh and PHP to mention some\cite{ref:11}
 \cite{ref:12}\cite{ref:13}\cite{ref:22}\cite{ref:24}
 
 
-\subsection{Double-Metaphone}
+\item[Double-Metaphone]
 It was developed circa 2000. It is an improvement to Metaphone. It produces two phonetic codes 
 for a single input word. The two phonetic codes are: the most likely pronunciation and the optimum 
 pronunciation\cite{ref:17}\cite{ref:24}.
 
 
-\subsection{Beider-Morse Phonetic Matching}
+\item[Beider-Morse Phonetic Matching]
 This algorithm considers that the pronunciation of a given word depends on the language
 where that word is being pronounced. First step is to identify the word language. Then
 the word is analyzed and broken down into phonetic tokens. That is performed by using
@@ -262,10 +294,14 @@ pronunciation rules for the detected language. Phonetic code is the sequence of 
 codes\cite{ref:19}\cite{ref:24}.
 
 
-\subsection{PhoneticSpanish}
+\item[PhoneticSpanish]
 This is a an algorithm proposed by\cite{ref:09} which is based on Soundex. The algorithm
 tries to adapt Soundex to Spanish pronunciation. Authors does not mention any restriction
 on the phonetic code length.
+\end{description}
+
+
+
 
 \section{Phonetic Algorithms Comparison Method}
 \subsection{Precision Function}
