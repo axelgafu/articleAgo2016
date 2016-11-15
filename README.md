@@ -4,28 +4,27 @@
 
 ### Abstract
 ---
-Natural language writing is a field of interest. Part of this process is related to
-the written language. Something that is true about that is you can make mistakes
-when writing or typing. Typographical errors are an example of those mistakes.
-Those errors may be imperceptible to a human being, but still, harmless as they
-may seem they may be sufficient to cause a failure when searching a record in
-a database . Could a phonetic algorithm capture enough of the word sound
-essence as to be considered a meaningful resource for colloquial Spanish?
+Text mining is a field of interest. It may use as input text written in natural language
+for which is error prone. However, some of the typographical errors made while
+typing may be imperceptible at a glance by a human being. In spite of that assumption,
+they may be sufficient to cause a failure when using a computer to search a record in 
+a database or maybe when processing natural language corpora. Efforts have been
+done in the past to make some computer programs more robust against typographical 
+errors. The present work discusses what a phonetic algorithm is and it proposes a 
+precision measurement method for phonetic algorithms. It presents the results of 
+applying the underlined method on text written in Spanish using natural language.
 
-**Keywords**: Natural Language Processing, Spanish, Phonetic algorithm
+**Keywords**: Natural Language Processing, Spanish, Phonetic algorithm.
 
 ---
 ### Milestones
 |Description|Date|
 |-----------|----|
-|Submit first draft to review|Ago/13/16|
-|Submit second draft to review|Ago/17/16|
-|Submit draft to SMCC|Ago/19/16|
-|Final Submit to SMCC|Sep/16/16|
+|Final papers and Registrations are due|November 20, 2016|
+|Abstracts are due|November 20, 2016|
+|Hotel reservation (will be honored based on FIFO).|November 22, 2016|
+|CSCI'16:Las Vegas, |December15-17, 2016|
 
 
-Article to be sent to [Mexican International Conference on Computer Science 2016 (ENC 2016)](http://smcc.mx) 
+Article to be sent to [Computational Intelligence (CSCI-ISCI)](http://americancse.org/events/csci2016/Symposiums/csci-iscsci) 
 
-Mexican Society on Computer Science (SMCC),
-November 14-16, 2016.
-Chihuahua, Chihuahua, México.
