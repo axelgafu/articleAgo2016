@@ -51,7 +51,7 @@
 
 
 
-\documentclass[conference,compsoc]{IEEEtran}
+\documentclass[9pt,conference]{IEEEtran}
 % Some/most Computer Society conferences require the compsoc mode option,
 % but others may want the standard conference format.
 %
@@ -60,12 +60,8 @@
 % \documentclass[conference,compsoc]{../sty/IEEEtran}
 
 
-\usepackage{url}
 \usepackage{float}
 \usepackage{booktabs}
-\usepackage{amsmath}
-\usepackage{graphicx}
-\graphicspath{ {images/} }
 
 
 % Some very useful LaTeX packages include:
@@ -135,9 +131,10 @@
 % *** GRAPHICS RELATED PACKAGES ***
 %
 \ifCLASSINFOpdf
-  % \usepackage[pdftex]{graphicx}
+   \usepackage[pdftex]{graphicx}
   % declare the path(s) where your graphic files are
   % \graphicspath{{../pdf/}{../jpeg/}}
+   \graphicspath{ {images/} }
   % and their extensions so you won't have to specify these with
   % every instance of \includegraphics
   % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
@@ -178,7 +175,7 @@
 
 % *** MATH PACKAGES ***
 %
-%\usepackage{amsmath}
+\usepackage{amsmath}
 % A popular package from the American Mathematical Society that provides
 % many useful and powerful commands for dealing with mathematics.
 %
@@ -310,7 +307,7 @@
 
 % *** PDF, URL AND HYPERLINK PACKAGES ***
 %
-%\usepackage{url}
+\usepackage{url}
 % url.sty was written by Donald Arseneau. It provides better support for
 % handling and breaking URLs. url.sty is already installed on most LaTeX
 % systems. The latest version and documentation can be obtained at:
@@ -345,23 +342,33 @@
 % author names and affiliations
 % use a multiple column layout for up to three different
 % affiliations
-\author{\IEEEauthorblockN{Axel A. Garcia Fuentes}
-\IEEEauthorblockA{Universidad Autonoma de Guadalajara\\
-Av. Patria 1201, Lomas del Valle\\
-Zapopan, Jalisco, Mexico\\
-Email: axel.garcia@edu.uag.mx}
-\and
-\IEEEauthorblockN{Irene Payan Parra}
-\IEEEauthorblockA{Universidad Autonoma de Guadalajara\\
-Av. Patria 1201, Lomas del Valle\\
-Zapopan, Jalisco, Mexico\\
-Email: irene.payan.p@gmail.com}
-\and
-\IEEEauthorblockN{Rogelio Davila Perez}
-\IEEEauthorblockA{Universidad Autonoma de Guadalajara\\
-Av. Patria 1201, Lomas del Valle\\
-Zapopan, Jalisco, Mexico\\
-Email: rdav90@gmail.com}}
+\author{
+    \IEEEauthorblockN
+    {
+        Axel A. Garcia Fuentes\IEEEauthorrefmark{1},
+        Irene Payan Parra\IEEEauthorrefmark{2},
+        Rogelio Davila Perez\IEEEauthorrefmark{3}
+    }
+    \IEEEauthorblockA
+    {
+        Computer Science Department\\
+        Universidad Autonoma de Guadalajara\\
+        Zapopan, Mexico\\
+        Email: 
+            \IEEEauthorrefmark{1}axel.garcia@edu.uag.mx, 
+            \IEEEauthorrefmark{2}irene.payan.p@gmail.com, 
+            \IEEEauthorrefmark{3}rdav90@gmail.com
+    }
+    \and
+    \IEEEauthorblockN{Jesus Ubaldo Quevedo-Torrero}
+    \IEEEauthorblockA
+    {
+        Computer Science Department\\
+        University of Wisconsin Parkside\\
+        Wisconsin, USA\\
+        Email: quevedo@uwp.edu
+    }
+}
 
 % conference papers do not typically use \thanks and this command
 % is locked out in conference mode. If really needed, such as for
@@ -411,6 +418,8 @@ precision measurement method for phonetic algorithms. It presents the results of
 applying the underlined method on text written in Spanish using natural language.\\
 
 \textit{Keywords}: Natural Language Processing, Spanish, Phonetic algorithm.\\
+
+Submission for "Regular Research Papers"
 \end{abstract}
 
 % no keywords
@@ -553,7 +562,7 @@ characters, then their computation time is reasonable.\\
 
 There are some phonetic algorithms that have been created. Some of them were designed to process text 
 assuming an English context. Some others where extended to languages other than English. Next 
-sections will discuss some of the phonetic algorithms that has been used in the past.
+sections will discuss some of the phonetic algorithms that has been used in the past.\\
  
 \begin{itemize}
 \item \textbf{Soundex.}
@@ -582,10 +591,11 @@ However, Soundex did not generate the same phonetic code; e.g. Moskowitz y Mosko
 	
 The following examples were obtained from\cite{ref:39}:
 \begin{table}[H]
-\caption{Phonetic Algorithms: Descriptive Statistics} \label{tab:02}
+\caption{Phonetic Algorithms: Ponetic codes Comparison} \label{tab:02}
 \centering
-\begin{tabular}{ lcp{20mm} }\\
+\begin{tabular}{ lcp{0.35\columnwidth} }\\
 \toprule[1.5pt]
+                             & \multicolumn{2}{c}{\bf Generated Phonetic Codes of Phonetic Algorithms} \\
 	\bf Surname & \bf American Soundex & \bf D-M Soundex \\ \hline
          Peters	&P362	&739400, 734000 \\
          Peterson	&P362	&739460, 734600 \\
@@ -658,7 +668,7 @@ the used phonetic algorithm:
 One of the goals of this comparison is to gather data that allows to measure how the studied
 phonetic algorithms point to the correct word. In other words, how precise and accurate each
 algorithm is. The following are the definitions of precision and accuracy considered for this
-document:
+document:\\
 \begin{itemize}
 \item \textbf{Algorithm Precision.} Lets assume there are two words: "correct word" and a 
 single "evaluation word". If the evaluation word were to be processed in order to find the 
@@ -683,35 +693,35 @@ is equal to the pronunciation of the evaluation word $\alpha$. Thus, assumption 
 could replace $\alpha$:
 \begin{equation}
 %????. p(?) = p(?) ? ? ? ?, ???????
-\forall\alpha.\beta.\Theta.\left\{\ (p(\alpha) = p(\beta)) \to \alpha=\beta,\ \ \beta\in\Theta\right\}
+\forall\alpha.\beta.\Theta.\left\{\ (\phi(\alpha) = \phi(\beta)) \to (\alpha=\beta\ \land\ \beta\in\Theta)\right\}
 \end{equation}
 
 % 2
-\item However, only a single one of them can be part of the solution set $\Psi$. The rest of them are considered
+\item However, only a single one of them can be part of the solution set $\Psi$; i.e. $\left\|\Psi\right\|$=TP=1. The rest of them are considered
 false positives (FP):
 \begin{multline}
 \label{eq_01}
 %????. ??? ???? ? |?| = 1
-\forall\beta.\gamma.\Theta.\Psi.\ (\beta\in\Theta\land\gamma\in\Theta)\land \gamma\ne\beta \to \\ (\gamma\in\Psi\ \land\ \beta\notin\Psi\ \land\ \left\|\Psi\right\|=1)
+\forall\beta.\gamma.\Theta.\Psi.\{(\beta\in\Theta\land\gamma\in\Theta\land \gamma\ne\beta) \to\\ (\gamma\in\Psi\ \land\ \beta\notin\Psi\ \land\ \left\|\Psi\right\|=1)\}
 \end{multline}
 
 % 3
-\item A False Negative (FN) is actually a True Positive (TP) incorrectly classified. Based on \ref{eq_01}, true positives set $\Psi$ has a single element $\gamma$. Thus, in this context FN and TP are considered the same:
+\item A False Negative (FN) is actually a True Positive (TP) incorrectly classified; i.e. $\neg$FN is TP. Based on (\ref{eq_01}), true positives set $\Psi$ has a single element $\gamma$. Thus, in this context FN and TP are considered the same:
 \begin{equation}
 %??. ~~ ? ? ?
-\forall\gamma.\Psi.((\neg\neg\gamma\in\Psi\land\gamma\in\Psi\land\left\|\Psi\right\|=1)\to\neg\neg\gamma=\gamma)
+\forall\gamma.\Psi.\{(\neg\neg\gamma\in\Psi\land\gamma\in\Psi\land\left\|\Psi\right\|=1)\to\neg\neg\gamma=\gamma\}
 \end{equation}
 \begin{equation}
 TP+FN=1
 \end{equation}
 
 % 4
-\item Phonetic codes are True Positives candidates. As \ref{eq_01} states there is a single one 
+\item Phonetic codes are True Positives candidates. As (\ref{eq_01}) states there is a single one 
 TP, the other $\beta$ candidates are a False Positives(FP), and they are represented by 
 $\Delta$ set:
 \begin{equation}
 \label{eq_02}
-\forall\beta.\gamma.\Delta.\ (\beta\in\Delta\land\gamma\notin\Delta) \to\left\|\Delta\right\|=N-1
+\forall\beta.\gamma.\Delta.\ \{(\beta\in\Delta\land\gamma\notin\Delta) \to\left\|\Delta\right\|=N-1\}
 \end{equation}
 Where $N$ is the length of the alternatives set $\Theta$.
 \begin{equation}
@@ -733,9 +743,9 @@ accuracy=\frac{TP+ TN}{TP + FP + FN + TN}
 \label{eq_03}
 \end{equation}
 
-Updating \ref{eq_03} with considerations of \ref{eq_01} and \ref{eq_02} precision equation has the following transformation:
+Updating (\ref{eq_03}) with considerations of (\ref{eq_01}) and (\ref{eq_02}) precision equation has the following transformation:
 \begin{multline}
-accuracy=\frac{TP+ TN}{(TP + FN) + (TN+ FP)} \to \\ \frac{TP+ 0}{1 + (N-1)} \to \frac{TP}{N}
+accuracy=\frac{TP+ TN}{(TP + FN) + (TN+ FP)} \to \\ \frac{1+ 0}{1 + (N-1)} \to \frac{1}{N}
 \label{eq_05}
 \end{multline}
 
@@ -747,17 +757,19 @@ precision=\frac{TP}{TP + FP}
 \label{eq_04}
 \end{equation}
 
-Updating \ref{eq_04} with considerations of \ref{eq_01} and \ref{eq_02} precision equation has the following transformation:
+Updating (\ref{eq_04}) with considerations of (\ref{eq_01}) and (\ref{eq_02}) precision equation has the following transformation:
 \begin{equation}
-precision=\frac{TP}{TP + FP} \to \frac{TP}{1 + (N-1)} \to \frac{TP}{N}
+precision=\frac{TP}{TP + FP} \to \frac{1}{1 + (N-1)} \to \frac{1}{N}
 \label{eq_06}
 \end{equation}
 
 
 \end{enumerate}
 
-From equations \ref{eq_05} and \ref{eq_06} precision and accuracy are measured 
-in the same way. Thus, the function used for this
+Equations (\ref{eq_05}) and (\ref{eq_06}) have the same form. Thus a single 
+equation can be used to measure both characteristics, i.e. precision and accuracy.
+However, a result that does not contain the looked for result will not be considered
+precise:
 \[   
 precision = 
      \begin{cases}
@@ -783,7 +795,7 @@ words are those which do not appear in the lexical resource(i.e. Spanish diction
 Formal words are those contained in the lexical resource.
 
 The following are identified cases of altered words and the approach used to handle those
-cases:
+cases:\\
 
 \begin{itemize}
 \item \textbf{Unnecessary repeated letters.}
@@ -817,7 +829,7 @@ errors on the data given that fact is to Tweet author decides to ignore orthogra
 A Python script was used for this evaluation. That evaluation script uses a non-standard 
 dictionary of terms. That Spanish dictionary of terms gathers words written in Spanish
 which were collected from several public resources. That made it useful for this work.
-Evaluation is divided in the following stages:
+Evaluation is divided in the following stages:\\
 
 \begin{itemize}
 \item Phonetic Code Generation. Dictionary of terms was processed with each one of
@@ -833,7 +845,6 @@ different data resource for later use. That means, only the not-found terms were
 for the phonetic algorithm precision measurement. It was decided that way in order to
 have a meaningful comparison; since terms found in the dictionary of terms are 
 correctly formed by definition.\\
-
 Data generated by this processing was saved in a comma-separated values file (cvs).
 Each row in that file has the data generated by the processing done for a single word.
 In other words, if a single tweet has several not-found words then there will be multiple
@@ -851,7 +862,7 @@ the studied phonetic algorithms.
 \section{Results}
 The data samples in this section are not completely shown since the size of the results 
 makes including the entire set unpractical. However, the full results set can be accessed
-in \cite{ref:40}\\
+in unpublished \cite{ref:40}
 
 
 Figure \ref{fig:preprocessed_tweet} shows a fragment of a CSV(comma separated 
@@ -869,10 +880,10 @@ In the output data, the "Message ID" column is the identifier of the words of ea
 "Item Name" column is the word that was analyzed, "Phonetic Code" is the phonetic 
 code that was assigned to the word being processed, "Alternatives to Item" column are 
 words that look similar to the word sound that was analyzed, "phonetic Algorithm precision" 
-column is the precision computed using the method described in this document.\\
+column is the precision computed using the method described in this document.
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\columnwidth]{results_02_20161024}
+    \includegraphics[width=0.8\columnwidth]{results_02_20161024}
     \caption{Processed tweet sample.}
     \label{fig:processed_tweet}
 \end{figure}
@@ -880,15 +891,15 @@ column is the precision computed using the method described in this document.\\
 At the right of Fig. \ref{fig:preprocessed_tweet} it is possible to see the "Message ID". For
 instance, first row shows Message ID 9. In Fig. \ref{fig:processed_tweet}, the same Message
 ID can be found. The resulting phonetic code of some of the words in that message
-are shown. 
+are shown. \\
 
 
 Table \ref{tab:01} shows the studied phonetic algorithms ascendantly ordered by mean
-as first criteria and then by variance. That is, the lower in the table the algorithm is the
+as first criteria and then by median. That is, the lower in the table the algorithm is the
 better precision it has.
 
 \begin{table}[H]
-\caption{Phonetic Algorithms: Descriptive Statistics} \label{tab:01}
+\caption{Phonetic Algorithms Precision, Ascendent by Mean} \label{tab:01}
 \centering
 %\begin{center}
 \centering
