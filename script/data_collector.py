@@ -15,18 +15,19 @@ import fuzzy
 import abydos
 import chardet
 import sys, os
+import os.path
 
 from abydos.phonetic import bmpm, russell_index, dm_soundex, metaphone
 from soundex import getInstance
 from metaphone.metaphone import doublemetaphone
 from collections import Counter
-import os
 import shutil
 
 
 sdx = getInstance()
 double_metaphone=False
-lost_found={}
+dict_replaceby={}
+dict_phonemes={}
 
 #-------------------------------------------------------------------------------
 def carga_tabla_phon(filename):
@@ -214,19 +215,17 @@ def list_execute_phonetic_algorithm(word, package, function_name):
 def void_update_phonetic_codes_db(item, package, function_name):
     if isinstance(item, unicode):
         item=item.encode("UTF-8")
-        
+    
     phonetic_code_list=list_execute_phonetic_algorithm(item, package, function_name)
-    out_dir_name=function_name
-    
-    
+
     for phonetic_code in phonetic_code_list:
-        if len(phonetic_code) > 1:
-            output = open(out_dir_name + os.sep + phonetic_code, "a+")
-            line=output.read().encode("UTF-8")
-            if not item in line.split(';'):
-                output.write(';'+item)
-            output.close()
-            
+        if len(phonetic_code) >= 1:
+            if dict_phonemes.has_key(phonetic_code):
+                dict_phonemes[phonetic_code]=dict_phonemes[phonetic_code]+';'+item
+            else:
+                dict_phonemes[phonetic_code]=item
+
+
 #-------------------------------------------------------------------------------
 # End of Function
 
@@ -235,30 +234,29 @@ def generate_phonetic_codes(infilename, package, function_name):
     out_dir_name=function_name
     
     print "Algorithm: Generating phonetic codes for ", function_name,"... ",
-    if os.path.exists(out_dir_name):
-        # If directory exists use the information in it. 
-        print "directory already exists."
+    if os.path.isfile('phonemes_'+function_name+'.csv'):
+        # If file exists use the information in it.
+        print "Phonemes file already exists."
         return
-        #shutil.rmtree(out_dir_name)
+    # End-If: Phonemes file exists.
 
-
-    os.mkdir(out_dir_name)
-    #print "Generating new phonetic codes..."
-    #with codecs.open(infilename, 'rU', encoding='UTF-8', errors='ignore') as lineas:
     with open(infilename, 'rU') as lineas:
-            for row in csv.reader(lineas, delimiter=','):
-                #row=unicode(row, "UTF-8")
-                if not isinstance(row[0], unicode):
-                    row[0]=unicode(row[0],'UTF-8')
+        for row in csv.reader(lineas, delimiter=','):
+            #row=unicode(row, "UTF-8")
+            if not isinstance(row[0], unicode):
+                row[0]=unicode(row[0],'UTF-8')
                 
-                row[0]=row[0].replace(u'A',u'á')
-                row[0]=row[0].replace(u'E',u'é')
-                row[0]=row[0].replace(u'I',u'í')
-                row[0]=row[0].replace(u'O',u'ó')
-                row[0]=row[0].replace(u'U',u'ú')
+            row[0]=row[0].replace(u'A',u'á')
+            row[0]=row[0].replace(u'E',u'é')
+            row[0]=row[0].replace(u'I',u'í')
+            row[0]=row[0].replace(u'O',u'ó')
+            row[0]=row[0].replace(u'U',u'ú')
                 
-                void_update_phonetic_codes_db(row[0], package, function_name)
-                
+            void_update_phonetic_codes_db(row[0], package, function_name)
+    
+    # Save recently generated phonemes to file.
+    write_csv(dict_phonemes, 'phonemes', function_name)
+
     print "Done."
 
 #-------------------------------------------------------------------------------
@@ -323,6 +321,53 @@ def write_record(index, item, phonetic_code, alternatives_set, alternatives, out
 #-------------------------------------------------------------------------------
 # End of Function
 
+#
+# Writes a dictionary in a text file with CSV format.
+#-------------------------------------------------------------------------------
+def write_csv(data, filename_sufix, phonetic_algorithm):
+    output_file=codecs.open(phonetic_algorithm+'_'+filename_sufix+'.csv', "a")
+    c = csv.writer(output_file, delimiter=',')
+    
+    for tuple in data.items():
+        # Decode first element if necesary.
+        if not isinstance(tuple[0], unicode):
+            tuple=(unicode(tuple[0]), tuple[1])
+
+        # Decode second element if necesary.
+        if not isinstance(tuple[0], unicode):
+            tuple=(tuple[0], unicode(tuple[1]))
+        
+        c.writerow(tuple)
+
+    output_file.flush()
+    output_file.close()
+#-------------------------------------------------------------------------------
+# End of Function
+
+#
+# Reads a dictionary in a text file with CSV format. The data is returned as a
+# dictionary.
+#-------------------------------------------------------------------------------
+def read_csv_dict(filename_sufix, phonetic_algorithm):
+    result_dict={}
+    file_name=phonetic_algorithm+'_'+filename_sufix+'.csv'
+
+    if os.path.isfile(file_name):
+        input_file=codecs.open(file_name, "r")
+        c = csv.reader(input_file, delimiter=',')
+    
+        for row in c:
+            result_dict[row[0]]=row[1]
+        # End-For: Read file.
+
+        input_file.close()
+    # End-If: file exists.
+
+    return result_dict
+#-------------------------------------------------------------------------------
+# End of Function
+
+
 # It will try to read the correct replacement for the item under evaluation from
 # the <replacement_dir_name>/<item> file; e.g.:
 #    get_correct_item('sampleword','replaceby')
@@ -337,22 +382,16 @@ def get_correct_item(item, replacement_dir_name):
     
     try:
         item=item.lower()
-        correct_word=item
-        if lost_found.has_key(item):
-            return lost_found[item]        
-        # End-If: If it was previously found. 
-
-        if dic.has_key(item):
-            # If the item is in the dictionary, then it is the correct word.
-            return item
-        # End-If: If it is in the dictionary.
         
-        if os.path.exists(replacement_dir_name + os.sep + item):
-            # Read correct word from the database.
-            output = codecs.open(replacement_dir_name + os.sep + item, "r", encoding="UTF-8")
-            correct_word=output.read().encode("UTF-8")
-            output.close()
+        if dict_replaceby.has_key(item):
+            return dict_replaceby[item]
         else:
+            if dic.has_key(item):
+                # If the item is in the dictionary, then it is the correct word.
+                return item
+            # End-If: If it is in the dictionary.
+            
+            
             # If it is a hashtag or a user name use the same word as correct one
             if item[0] in '#@':
                 correct_word=item
@@ -361,26 +400,20 @@ def get_correct_item(item, replacement_dir_name):
                 # If user just hit enter then use the default correct word which is the exact same word being evaluated.
                 if len(correct_word_aux)>0:
                     correct_word=correct_word_aux
+                    dict_replaceby[item]=correct_word.lower()
                 # End-If: Default word selection
             # End-If: Is hash tag.
+        
 
-            output=open(replacement_dir_name + os.sep + item, "wb")
-            output.write(correct_word.lower())
-            output.close()
-        # End-IF: Replace-by directory exists.
+         # End-IF: Replace-by directory exists.
     except:
         correct_word=''
-    
-    
-    lost_found[item]=correct_word
+
     return correct_word
 #-------------------------------------------------------------------------------
 # End of Function
 
 
-#
-# 1. Generación de Diccionario de Códigos Fonéticos
-# 2. Recolección de Datos de Desempeño de los Algoritmos Fonéticos
 #
 # This function processes each one of the words in the sample file with text in
 # in natural language; i.e. 'twitter_spanish.csv'. For each word in that file,
@@ -390,18 +423,20 @@ def collect_data(phonems_file_name, output_file_name, package, function_name):
     input_dir_name=function_name
     precision_list=[]
     
-    if os.path.exists(output_file_name):
+    print "Output file: ", output_file_name, "."
+    if os.path.isfile(output_file_name):
         # If file exists assume it does not require to be processed again.
         print "Algorithm: Results already exist in ", output_file_name, ". Skipping."
         return
-    # End-If: Data already genetated.
+    # End-If: Data already generated.
 
     print "Algorithm: " + function_name + "; start data processing... "
     initialize_records_file(output_file_name, function_name)
     
-    if not os.path.exists('replaceby'):
-        os.mkdir('replaceby')
-    # End-IF: If replace-by directory does not exists.
+    # Load CVS data
+    dict_replaceby=read_csv_dict('replaceby', 'db')
+    dict_phonemes=read_csv_dict('phonemes', function_name)
+    
     
     with codecs.open('twitter_spanish.csv', 'rU', errors='ignore') as lineas:
         index = 1
@@ -445,16 +480,13 @@ def collect_data(phonems_file_name, output_file_name, package, function_name):
                  
                 
                     # If a homophone exists use it...
-                    if len(phonetic_code)>0 and os.path.exists(input_dir_name + os.sep + phonetic_code):
-                        #output=codecs.open(input_dir_name + os.sep + phonetic_code, "r", encoding="UTF-8")
-                        output=open(input_dir_name + os.sep + phonetic_code, "r")
-                        alternatives_set=output.read()
+                    if len(phonetic_code)>0 and dict_phonemes.has_key(phonetic_code):
+                        alternatives_set=dict_phonemes[phonetic_code]
 
                         if isinstance(alternatives_set, unicode):
                             alternatives_set=alternatives_set.encode("UTF-8")
                         # End-If: Is data read unicode?
 
-                        output.close()
                         alternatives=alternatives_set.split(';')
                     # otherwise, use a label for the unsuccessful case.
                     else:
@@ -477,6 +509,10 @@ def collect_data(phonems_file_name, output_file_name, package, function_name):
             index += 1
         # End-For: rows in CVS file
         
+        # Save replaceby words
+        write_csv(dict_replaceby, 'replaceby', 'db')
+        write_csv(dict_phonemes, 'phonemes', function_name)
+        
         # Compute final statistics:
         mode_pa=Counter(precision_list).most_common(1)
         summary_string="Algorithm: ", function_name, "; Mode: " + str(mode_pa) + ", Median: " + str(numpy.median(precision_list)) + ", Mean: " + str(numpy.mean(precision_list)) +", StdDev: " + str(numpy.std(precision_list, ddof=1))
@@ -488,6 +524,7 @@ def collect_data(phonems_file_name, output_file_name, package, function_name):
     
 #-------------------------------------------------------------------------------
 # End of Function
+
 
 
 phonetic_algorithms_list=[
@@ -512,15 +549,14 @@ phonetic_algorithms_list=[
     {'pkg':abydos.phonetic,'name':'bmpm'}         # Beider-Morse Phonetic Matching
 ]
 
+
 if __name__ == '__main__':
     for phonetic_algorithm in phonetic_algorithms_list:
-        #generate_phonetic_codes("rae_corpus_v03.csv", phonetic_algorithm['pkg'], phonetic_algorithm['name'])
         generate_phonetic_codes("spanish_dict.csv", phonetic_algorithm['pkg'], phonetic_algorithm['name'])
     
-        #collect_data('rae_corpus_v03_phonspanish_generate_' + phonetic_algorithm['name'] + '.csv',
         collect_data('spanish_dict_' + phonetic_algorithm['name'] + '.csv',
-                     'results_' + phonetic_algorithm['name'] + '.csv', 
-                     phonetic_algorithm['pkg'], phonetic_algorithm['name'] )
+                    phonetic_algorithm['name'] + '_results.csv',
+                    phonetic_algorithm['pkg'], phonetic_algorithm['name'] )
     # End-For: Algorithms list.
     
 
