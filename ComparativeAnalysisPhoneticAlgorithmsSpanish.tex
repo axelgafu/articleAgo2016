@@ -408,17 +408,19 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
-Text mining is a field of interest. It may use as input text written in natural language
-for which is error prone. However, some of the typographical errors made while
-typing may be imperceptible at a glance by a human being. In spite of that assumption,
-they may be sufficient to cause a failure when using a computer to search a record in 
-a database or maybe when processing natural language corpora. Efforts have been
-done in the past to make some computer programs more robust against typographical 
-errors. The present work discusses what a phonetic algorithm is and it proposes a 
-precision measurement method for phonetic algorithms. It presents the results of 
-applying the underlined method on text written in Spanish using natural language.\\
+ The immense and continuous expansion of the participation of people in the so-called 
+ "social networks" such as Facebook or Twitter in the last 15 years has made text mining 
+ to become one of the most important research areas in computer science. The possibility 
+ to obtain information regarding people's opinion has open a potential area of impact in 
+ the decision of companies, public figures and government. Some algorithms have being 
+ developed for retrieving information, all of them based on performing word recognition. 
+ The present work discusses the use of phonetic algorithms to improve word recognition 
+ and proposes a precision measurement method to evaluate the results. It presents some 
+ examples of applying some well-known phonetic algorithms on text written in Spanish 
+ using natural language processing techniques.\\
 
-\textit{Keywords}: Natural Language Processing, Spanish, Phonetic algorithm.\\
+\textit{Keywords}: Natural Language Processing, text processing, phonetic algorithms, 
+Spanish text processing.\\
 
 Submission for "Regular Research Papers"
 \end{abstract}
@@ -444,30 +446,31 @@ Submission for "Regular Research Papers"
 %%*************************************************************************
 \section{Introduction}
 %%*************************************************************************
-Recently in history there have been efforts on finding an algorithm capable
-of encode the sound of a word. At the beginning of the 20\textsuperscript{th} century in USA 
-those efforts were used as a resource during one of the census in that country\cite{ref:27}.
-Given names from several places in the world had to be inputted and several of them
-did not have a clear writing from for the data analysts. It is possible that situation 
-caused typographic errors and most likely because of the homophony between several 
-proper names; e.g. Smith and Schmit or Moskowitz and Moskovitz. They sound very similar 
-to people, however, they represent a computational issue since they are not the 
-same for a traditional computer system. Something had to be done in order 
-to properly classify or to correctly index the names of all those people.\\
+Word recognition is an important part of any natural language processing 
+application but identifying words may be a complicated task as different 
+combinations of letters may have the same pronunciation and it is common 
+for people to misspell them when writing. In the USA census in 1930 \cite{ref:27}: 
+having many people from different parts of the world they were confronted 
+to capture their names. The homophony between proper names such as 
+Smith and Schmit or Moskowitz and Moskovitz, caused typographic errors 
+making difficult to properly classify or to correctly index those names.\\
 
-One of the first algorithms used when looking for a solution to that problem is called Soundex. It was 
-developed by Robert Russell and Margaret Odell in 1918\cite{ref:28}\cite{ref:33}. A variation of that
-algorithm called American Soundex was used in the US census of 1930\cite{ref:01}\cite{ref:02}\cite{ref:25}. 
+One of the first algorithms used when looking for a solution to that problem 
+is called Soundex. It was developed by Robert Russell and Margaret Odell 
+in 1918\cite{ref:28,ref:33}. A variation of that algorithm called American 
+Soundex was used in the US census of 1930\cite{ref:01,ref:02,ref:25}. 
 % American Soundex was referred to as Miracode: http://west-penwith.org.uk/misc/soundex.htm
-It was used during a while until a deficiency on handling foreign names was identified\cite{ref:08}
-\cite{ref:32}\cite{ref:24}. After Soundex some variants were used; e.g. Daitch-Mokotoff Soundex\cite{ref:38},
-NYIIS\cite{ref:29}, Metaphone\cite{ref:29}, Beider-Morse Phonetic Matching\cite{ref:30}, Koelner Phonetik, MRA, Caverphone\cite{ref:29}
-and PhoneticSpanish\cite{ref:09} to mention some of them. Those algorithms 
-were called phonetic algorithms since they generate a result based on the
-assumed sound the letters may have when written together. More details 
-about this type of algorithm will be discussed in the following sections.\\
+It was used during a while until a deficiency on handling foreign names 
+was identified \cite{ref:08,ref:32,ref:24}. After Soundex some variants were 
+used; e.g. Daitch-Mokotoff Soundex\cite{ref:38}, NYIIS\cite{ref:29}, 
+Metaphone\cite{ref:29}, Beider-Morse Phonetic Matching\cite{ref:30}, 
+Koelner Phonetik, MRA, Caverphone\cite{ref:29} and PhoneticSpanish\cite{ref:09} 
+to mention some of them. Those algorithms were called phonetic algorithms 
+since they generate a result based on the assumed sound the letters may 
+have when written together. More details about this type of algorithm 
+will be discussed in the following sections.\\
 
-Objective of those algorithms is to create a resulting code that represents
+The objective of those algorithms is to create a resulting code that represents
 the sound that a given word may produce when it is pronounced. That means, 
 for any arbitrary pair of words, if they share the same resulting code then they are
 assumed to be homophones, i.e. they are pronounced exactly in the same way. 
@@ -477,12 +480,12 @@ the word as input. Trying to mimic the effect they have in the word sound, it wi
 those letters interactions in order to create a resulting code which will be referred as 
 phonetic code. \\
 
-Nevertheless, even if homophones can be found that do not imply
-they are homonyms. The fact that words sound the same is not enough to cause the
-words to share the same meaning. There is a deep difference between sound and 
-meaning. Thus, the focus of this discussion is how effective the studied phonetic 
-algorithms are to represent the word being analyzed. This document will disregard its 
-meaning, as well as, the actual sound of the word. \\
+When analyzing words, if homophones are found, it does not imply they are 
+homonyms, that is, have the same meaning. Two words may  share the same 
+sound but not necessarily the same meaning. There is a deep difference between 
+sound and meaning, in this document the meaning will be disregarded. The focus of 
+this discussion will be on how effective the existent phonetic algorithms are to 
+represent the word being analyzed.\\
  
  
  
@@ -490,14 +493,13 @@ meaning, as well as, the actual sound of the word. \\
 %%*************************************************************************
 \section{Phonetic Algorithms}
 %%*************************************************************************
-The variety of names that have been given to the actual algorithms under discussion consider: 
-name encoding algorithms\cite{ref:17}, 
-phonetic algorithms\cite{ref:01} and phonetic coding algorithms\cite{ref:10}, 
-to mention some of them. The former evoke the usage those algorithms had during the census 
-of 1930 in USA. Notwithstanding, they can be used to process other words besides names. 
-Last two names mention the concept of "phonetic". In linguistics there exist two major areas 
-that study the sound of the words: i.e. phonetics and phonology. Both areas have different 
-purposes\cite{ref:31}.
+There is a variety of names that have been given to the algorithms under discussion: 
+name encoding algorithms\cite{ref:17}, phonetic algorithms\cite{ref:01} and phonetic 
+coding algorithms\cite{ref:10}, to mention some of them. The first one evoke the usage 
+those algorithms had during the census of 1930 in USA. Notwithstanding, they can be 
+used to process other words besides proper names. Last two names mention the concept of 
+"phonetic". In linguistics there exist two major areas that study the sound of the words: 
+i.e. phonetics and phonology. Both areas have different purposes\cite{ref:31}.
 
 \subsection{Phonetic and Phonology}
 In Linguistic they are two areas that study the sound of the language and the effect the 
@@ -506,7 +508,7 @@ Phonetics study the way in which pronunciation sounds are generated. For that pu
 it uses acoustic analyses, as well as, analyses of what sounds are heard by the
 human ear. It elaborates more on the way people articulates the sounds. It considers in those 
 analyses the parts of the phonic apparatus: tongue, throat, vocal cords, palate, soft palate, 
-alveolus, teeth and lips\cite{ref:06}\cite{ref:07}\cite{ref:18}.\\
+alveolus, teeth and lips\cite{ref:06,ref:07,ref:18}.\\
 
 According with\cite{ref:31} phonology studies elements called "phonemes". They are part of
 the study of how the sounds affect the language. The following example is being taken from 
@@ -522,17 +524,15 @@ voiced bilabial stop \lbrack b\rbrack. The result of that change is a completely
 Linguistics call "phonemes" to those sounds that should be invariant in order to keep the word meaning. 
 Phonology studies phonemes (among other language aspects). Phonemes vary in each language, 
 i.e. there are different phonemes in English than there are phonemes in Spanish, which in turn are 
-different to German, Japanese, and so on. Thus phonemes are language dependent\cite{ref:06}\cite{ref:07}\cite{ref:18}.\\
+different to German, Japanese, and so on. Thus phonemes are language dependent
+\cite{ref:06,ref:07,ref:18}.\\
 
 Phonemes may be considered the functional reference to compare the sound of two words 
-in a given language. If there
- is a difference in the phonemes used, then there are two different words being 
-compared and the ideal algorithm should produce different resulting codes. Thus what the
-algorithm is doing is processing the word in a phonological level. That may be enough 
-justification to name these algorithms "phonological algorithms" and to refer to their result
-"phonological code". However,  since the name "phonetic algorithms" seems to have been 
-widely used by now, this document will use "phonetic algorithms" and "phonetic codes" for 
-the rest of the discussion. 
+in a given language. If there is a difference in the phonemes used, then there are two 
+different words being compared and the ideal algorithm should produce different resulting 
+codes. Thus what the algorithm is doing is processing the word in a phonological level. 
+That may be enough  justification to name these algorithms "phonological" and to refer to their result
+"phonological code". 
 
 \subsection{Phonetic Algorithms as Hash Algorithms}
 Something to have in mind is phonetic algorithms were originally created to index words by the sound 
@@ -545,19 +545,22 @@ hash function and in fact, phonetic codes have been informally referred to as "p
 There is a number of desirable characteristics that a hash function should meet\cite{ref:16}. 
 Phonetic algorithms are in deed hash functions and the reasoning is the following:
 \begin{itemize}
-\item \textbf{Weak Collision Resistance.} For any given word, if its pronunciation significantly changes then the 
-phonetic algorithm should generate a different phonetic code.\\
-\item \textbf{Strong Collision Resistance.} Consider those algorithms have been designed to generate the same
-phonetic code for words that share the same pronunciation. In that way words can be grouped by phonetic
-code. Two words that sound different should have different phonetic codes. That means phonetic 
+\item \textbf{Weak Collision Resistance.} For any two words, if their pronunciation 
+are similar then the phonetic algorithm should generate the same phonetic code.\\
+\item \textbf{Strong Collision Resistance.} Consider those algorithms have been 
+designed to generate the same phonetic code for words that share the same 
+pronunciation. In that way words can be grouped by phonetic code. Two words 
+that sound different should have different phonetic codes. That means phonetic 
 algorithms are designed for low collision.\\
-\item \textbf{Oneway Property.} Phonetic algorithms will ignore characters that are irrelevant to phonetic code 
-production. It is not possible to turn it into the initial word since there is not enough information in the 
-phonetic code to do it.\\
-\item \textbf{Performance.} Phonetic algorithms are deterministic. Some of them look the characters of the word
-in a map/dictionary that contains the phonetic code transformation. Structures like maps or dictionaries use
-to be O(n) where n is equals to the word length or less. Assuming that a word has a small number of 
-characters, then their computation time is reasonable.\\
+\item \textbf{Oneway Property.} Phonetic algorithms will ignore characters that 
+are irrelevant to phonetic code production. Hence, in most cases It is not possible 
+from the phonetic code to return to the original word since there is not enough 
+information in the phonetic code to accomplish it.\\
+\item \textbf{Performance.} Phonetic algorithms are deterministic. Some of them 
+look the characters of the word in a map/dictionary that contains the phonetic code 
+transformation. Structures like maps or dictionaries have complexity O(n) where n 
+is the word length. Assuming that a word has a small number of characters, then 
+their computation time is reasonable.\\
 \end{itemize}
 
 
@@ -624,8 +627,8 @@ string of up to six characters. See more details in \cite{ref:17}\cite{ref:24}.\
 \item \textbf{Metaphone.}
 It was published in 1990 as an enhancement to Soundex. It was designed for English language.
 This phonetic algorithm has been used to perform genealogical searches. There are versions of
-this algorithm implemented for high level languages like: Pythoh and PHP to mention some\cite{ref:11}
-\cite{ref:13}\cite{ref:22}\cite{ref:24}.\\
+this algorithm implemented for high level languages like: Pythoh and PHP to mention some
+\cite{ref:11,ref:13,ref:22,ref:24}.\\
 
 
 \item \textbf{Double-Metaphone.}
@@ -639,7 +642,7 @@ This algorithm considers that the pronunciation of a given word depends on the l
 where that word is being pronounced. First step is to identify the word language. Then
 the word is analyzed and broken down into phonetic tokens. That is performed by using
 pronunciation rules for the detected language. Phonetic code is the sequence of phonetic
-codes\cite{ref:19}\cite{ref:24}.\\
+codes\cite{ref:19,ref:24}.\\
 
 
 \item \textbf{PhoneticSpanish.}
@@ -670,6 +673,7 @@ One of the goals of this comparison is to gather data that allows to measure how
 phonetic algorithms point to the correct word. In other words, how precise and accurate each
 algorithm is. The following are the definitions of precision and accuracy considered for this
 document:\\
+
 \begin{itemize}
 \item \textbf{Algorithm Precision.} Lets assume there are two words: "correct word" and a 
 single "evaluation word". If the evaluation word were to be processed in order to find the 
@@ -677,11 +681,12 @@ correct word, then that processing requires one step to produce the result; i.e.
 the evaluation word will give as result the correct word. Now assume there are two
 evaluation words and a single correct word. In that case, processing the result would 
 require two steps; one for each evaluation word. If there were three evaluation words
-then the evaluation would be three steps, and so on. Precision is how far the processing is
-from the correct word. Which in few words mean, how many words share the same phonetic 
+then the evaluation would be three steps, and so on. Precision is how many candidate
+words there exist to find the correct word. Which in few words mean, how many words 
+share the same phonetic 
 code given a phonetic algorithm. Paragraphs below explain that with more details.\\
-\item \textbf{Algorithm Accuracy.} The evaluation word phonetic code matches the correct 
-word phonetic code.\\
+\item \textbf{Algorithm Accuracy.} How close the word?s resultant phonetic code 
+matches the correct word?s phonetic code.\\
 \end{itemize}
 
 The name used in this document for the set of words that share the same phonetic code is 
@@ -769,7 +774,7 @@ precision=\frac{TP}{TP + FP} \to \frac{1}{1 + (N-1)} \to \frac{1}{N}
 
 Equations (\ref{eq_05}) and (\ref{eq_06}) have the same form. Thus a single 
 equation can be used to measure both characteristics, i.e. precision and accuracy.
-However, a result that does not contain the looked for result will not be considered
+However, a result that does not contain the expected value will not be considered
 precise:
 \[   
 precision = 
@@ -785,8 +790,8 @@ precision =
 \section{Method}
 %%*************************************************************************
 A sample of 1000 tweets was used for this experiment. Those tweets were gathered
-without a particular constrain. The text in those tweets is natural language in Spanish
-spoken in Mexico. That includes slang, words created by the tweet author, text 
+without a particular constrain. The text in those tweets is natural language (Mexican 
+Spanish). That includes slang, words created by the tweet author, text 
 emoticons, as well as, official Spanish words. The input data also has structured strings 
 like: urls, numbers and hashtags to mention some.\\
 
@@ -815,13 +820,20 @@ instead of "T{\'e}cnico"("Technician"). In this example both words have an exact
 Royal Spanish Academy dictionary, too. For those cases, the word with incorrect characters
 has been transformed to its Royal Spanish Academy form.\\
 
-
 \item \textbf{Ambiguous Words.}
-For example: "T?pico" may be "T{\'o}pico"(topic) or "T{\'i}pico"(typic), "est?" may be
+For example: "T?pico" instead of "T{\'o}pico"(topic) or "T{\'i}pico"(typic), "est?" instead of
  "est{\'a}" or "est{\'e}" (to be). Correct term may be inferred from the context where the 
 word is being used. However, it has been decided to ignore those words since finding the 
 correct selection goes beyond the scope of phonetic algorithms. Doing such search may 
 introduce systematic errors in the measurements of this experiment.\\
+
+\item \textbf{Ad Hoc. Abbreviations.}
+For example: "x" instead of "por" which could be interpret as "for" or "why". Another example is "xq"
+instead of "por qu{\'e}"(why) or "porque"(because), to mention some examples. For the
+majority of these cases, correct term may be inferred from the context where the 
+word is being used. However, it has been decided to ignore those words since finding the 
+correct selection goes beyond the scope of phonetic algorithms and some of them
+represent more than a single word.\\
 \end{itemize}
  
 The above described control mechanism has been used in order to prevent systematic 
@@ -829,14 +841,16 @@ errors on the data given that fact is to Tweet author decides to ignore orthogra
 
 A Python script was used for this evaluation. That evaluation script uses a non-standard 
 dictionary of terms. That Spanish dictionary of terms gathers words written in Spanish
-which were collected from several public resources. That made it useful for this work.
-Evaluation is divided in the following stages:\\
+which were collected from several public resources such as newspapers, Wikipedia
+Spanish documents, among others, what made it useful for this work.\\
 
+Evaluation is divided in the following stages:\\
 \begin{itemize}
-\item Phonetic Code Generation. Dictionary of terms was processed with each one of
-the discussed algorithms. That generated a phonetic code for each one of the terms in
-the dictionary. Phonetic codes were added into the dictionary of terms. The result is
-the phonetic codes dictionary. \\
+\item Phonetic Code Generation. All dictionary entries were processed with each of
+the algorithms discussed in previous sections. Each process generated a phonetic 
+code for each one of the terms. Phonetic codes were added into the dictionary 
+enhancing its content and creating what could be called a "phonetic dictionary" of
+Spanish terms. \\
 
 \item Precision Data Generation. For each one of the sample tweets, each one of the 
 words in the tweet was searched in the dictionary of terms. Some words were found 
@@ -861,10 +875,9 @@ the studied phonetic algorithms.
 
 
 \section{Results}
-The data samples in this section are not completely shown since the size of the results 
-makes including the entire set unpractical. However, the full results set can be accessed
-in unpublished \cite{ref:40}
-
+In this section, some results are presented, data samples are shown in full as the size of 
+the results makes impractical to include the entire set. However, the full results set can be 
+accessed in \cite{ref:40}\\
 
 Figure \ref{fig:preprocessed_tweet} shows a fragment of a CSV(comma separated 
 value) file. The figure shows a portion of the sample of 1,000 tweets in Spanish.
@@ -934,19 +947,23 @@ better precision it has.
 %%*************************************************************************
 \section{Conclusions and Future Work}
 %%*************************************************************************
-Used Spanish dictionary of terms has a mixture of official and non-official Spanish words, 
-meaning the Royal Spanish Academy(Spanish: Real Academia Espa\~nola) does not 
-recognize some of them. However, that is considered a positive aspect for this 
-experiment because in the case of a misspelling that kind of words(i.e. non-official words)
-are most likely to occur in natural language processing. Nevertheless, risk of a bias in the
-manual labeling exist. That risk has been mitigated with a big sample size and the
-re-usage of the same labeled dictionary for all of the phonetic algorithms evaluations.\\
+The Spanish dictionary of terms has a mixture of official and non-official Spanish words, 
+however, that is considered a positive aspect for this experiment because in the case 
+of a misspelling that kind of words(i.e. non-official words) are most likely to occur 
+in natural language processing. Nevertheless, risk of a bias in the manual labeling exist. 
+That risk has been mitigated with a big sample size and the re-usage of the same 
+labeled dictionary for all of the phonetic algorithms evaluations.\\
 
-Phonem and Phonet are the two algorithms with the highest precision mean among 
-the studied phonetic algorithms in this work. Nevertheless, their precision is barely 
-10\% which is distant from a promising precision. Future work should be done in order 
-to find a phonetic algorithm capable of achieving a higher precision without using 
-language context information.\\
+Results show Phonem and Phonet are the two algorithms with the highest measured 
+precision mean among the studied phonetic algorithms in this work. Although that measurement
+is relative to the dictionary of terms used for this experiment, it allows to compare
+the performance of phonetic algorithms to each other.\\
+
+Studied phonetic algorithms were designed for languages like: English, Slavic and 
+Yiddish. In this work they were applied to Mexican Spanish words and showed a 
+maximum measured precision close to 10\%. Future work should be done in order 
+to find a phonetic algorithm capable of achieving a higher precision for words in
+Mexican Spanish.\\
 
 
 
