@@ -62,7 +62,7 @@
 
 \usepackage{float}
 \usepackage{booktabs}
-
+\usepackage{flushend} % This is to level/balance references in last page.
 
 % Some very useful LaTeX packages include:
 % (uncomment the ones you want to load)
@@ -99,7 +99,7 @@
   \usepackage[nocompress]{cite}
 \else
   % normal IEEE
-  \usepackage{cite}
+  \usepackage[noadjust]{cite}
 \fi
 % cite.sty was written by Donald Arseneau
 % V1.6 and later of IEEEtran pre-defines the format of the cite.sty package
@@ -408,19 +408,23 @@
 % As a general rule, do not put math, special symbols or citations
 % in the abstract
 \begin{abstract}
- The immense and continuous expansion of the participation of people in the so-called 
- "social networks" such as Facebook or Twitter in the last 15 years has made text mining 
- to become one of the most important research areas in computer science. The possibility 
- to obtain information regarding people's opinion has open a potential area of impact in 
- the decision of companies, public figures and government. Some algorithms have being 
- developed for retrieving information, all of them based on performing word recognition. 
- The present work discusses the use of phonetic algorithms to improve word recognition 
- and proposes a precision measurement method to evaluate the results. It presents some 
- examples of applying some well-known phonetic algorithms on text written in Spanish 
- using natural language processing techniques.\\
+The vast and ever-increasing text posting in "social networks" such as Facebook 
+and Twitter, during the last 15 years, has produced an immense and rich text 
+repository for several areas of knowledge. Therefore, text mining has recently 
+become a very active and attractive area of research in computer science. The 
+limited current understanding of the knowledge represented in these repositories 
+has already influenced decision making for several companies, public figures 
+and government agencies. However, the demand for full understanding and 
+manipulation of these knowledge repositories has placed additional expectations 
+on text mining. Hence, some algorithms have being developed for retrieving 
+information, and most of them based on word recognition. This article discusses 
+the use of phonetic algorithms to improve word recognition and proposes a 
+precision measurement method to evaluate the results. It also presents some 
+examples of applying some well-known phonetic algorithms on Spanish written 
+texts using natural language processing techniques.\\
 
-\textit{Keywords}: Natural Language Processing, text processing, phonetic algorithms, 
-Spanish text processing.\\
+\textit{Keywords}: Natural Language Processing; text processing; phonetic algorithms; 
+Spanish text processing\\
 
 Submission for "Regular Research Papers"
 \end{abstract}
@@ -442,7 +446,7 @@ Submission for "Regular Research Papers"
 \IEEEpeerreviewmaketitle
 
 
-
+Registered Author:Axel Alejandro Garcia FuentesShipping address:5128 Volcan Popocatepetl, dep 7Zapopan, Jalisco, MexicoZip code: 45070
 %%*************************************************************************
 \section{Introduction}
 %%*************************************************************************
@@ -457,8 +461,8 @@ making difficult to properly classify or to correctly index those names.\\
 
 One of the first algorithms used when looking for a solution to that problem 
 is called Soundex. It was developed by Robert Russell and Margaret Odell 
-in 1918\cite{ref:28,ref:33}. A variation of that algorithm called American 
-Soundex was used in the US census of 1930\cite{ref:01,ref:02,ref:25}. 
+in 1918\cite{ref:28, ref:33}. A variation of that algorithm called American 
+Soundex was used in the US census of 1930\cite{ref:01, ref:02, ref:25}. 
 % American Soundex was referred to as Miracode: http://west-penwith.org.uk/misc/soundex.htm
 It was used during a while until a deficiency on handling foreign names 
 was identified \cite{ref:08,ref:32,ref:24}. After Soundex some variants were 
@@ -583,19 +587,8 @@ and 1920 U.S. Censuses\cite{ref:33}.
 
 With some minor changes to the weighting scheme used, Soundex has been applied to languages 
 other than English\cite{ref:34}\cite{ref:35}.\\
-
-\item \textbf{Daitch-Mokotoff Soundex System.}
-This variation of Soundex was Motivated by the poor results when dealing with Slavic and Yiddish 
-surnames. Its creators were the jewish genealogist Gary Mokotoff and Ranndy Daitch from Jewish 
-Genealogical Society. In 1985 Mokotoff indexed the names of 28,000 people that legally changed 
-their names while living in Palestine during 1921 through 1948. The majority of them were Jewish 
-with germanic or slavic names. During that exercise there were names that sounded the same. 
-However, Soundex did not generate the same phonetic code; e.g. Moskowitz y Moskovitz\cite{ref:08}
-\cite{ref:32}\cite{ref:24}.
-	
-The following examples were obtained from\cite{ref:39}:
-\begin{table}[H]
-\caption{Phonetic Algorithms: Ponetic codes Comparison} \label{tab:02}
+\begin{table}[b]
+\caption{Phonetic Algorithms: Phonetic codes Comparison} \label{tab:02}
 \centering
 \begin{tabular}{ lcp{0.35\columnwidth} }\\
 \toprule[1.5pt]
@@ -608,11 +601,23 @@ The following examples were obtained from\cite{ref:39}:
          Auerbach	&A612	&097500, 097400 \\
          Uhrbach	&U612	&097500, 097400 \\
          Jackson	&J250	&154600, 454600, 145460, 445460 \\
-         Jackson-Jackson	&J252	&154664, 454664,145466, 445466, 154646, 454646, 145464, 445464 \\
+         Jackson-Jackson	&J252	&154664, 454664, 145466, 445466, 154646, 454646, 145464, 445464 \\
 \bottomrule[1.25pt]
 \end{tabular}
-\label{default}
 \end{table}%
+
+\item \textbf{Daitch-Mokotoff Soundex System.}
+This variation of Soundex was Motivated by the poor results when dealing with Slavic and Yiddish 
+surnames. Its creators were the jewish genealogist Gary Mokotoff and Ranndy Daitch from Jewish 
+Genealogical Society. In 1985 Mokotoff indexed the names of 28,000 people that legally changed 
+their names while living in Palestine during 1921 through 1948. The majority of them were Jewish 
+with germanic or slavic names. During that exercise there were names that sounded the same. 
+However, Soundex did not generate the same phonetic code; e.g. Moskowitz y Moskovitz\cite{ref:08}
+\cite{ref:32}\cite{ref:24}.
+	
+Table \ref{tab:02} shows some phonetic codes generated using American Soundex and D-M 
+Soundex. That table was obtained from \cite{ref:39}.
+
 
 
 
@@ -798,11 +803,10 @@ like: urls, numbers and hashtags to mention some.\\
 It is important to mention that the language used in social networks is most likely informal.
 The data presents words with alterations with respect their respective formal mode. Altered 
 words are those which do not appear in the lexical resource(i.e. Spanish dictionary). 
-Formal words are those contained in the lexical resource.
+Formal words are those contained in the lexical resource.\\
 
 The following are identified cases of altered words and the approach used to handle those
 cases:\\
-
 \begin{itemize}
 \item \textbf{Unnecessary repeated letters.}
 For example "lentisssssssssimo" 
@@ -827,13 +831,23 @@ word is being used. However, it has been decided to ignore those words since fin
 correct selection goes beyond the scope of phonetic algorithms. Doing such search may 
 introduce systematic errors in the measurements of this experiment.\\
 
-\item \textbf{Ad Hoc. Abbreviations.}
+\item \textbf{Ad hoc Abbreviations.}
 For example: "x" instead of "por" which could be interpret as "for" or "why". Another example is "xq"
 instead of "por qu{\'e}"(why) or "porque"(because), to mention some examples. For the
 majority of these cases, correct term may be inferred from the context where the 
 word is being used. However, it has been decided to ignore those words since finding the 
 correct selection goes beyond the scope of phonetic algorithms and some of them
 represent more than a single word.\\
+
+\item \textbf{Special Characters.}
+This category refers to characters that appear isolated in the processed text which do not 
+pertain to the official Spanish alphabet according with the Royal Spanish Academy\cite{ref:41}; e.g. 
+@, \#, -, =. Characters in this category have been ignored for the measurements.\\
+
+\item \textbf{Hashtags and Mentions.}
+Hashtags may be composed by multiple words or by aliases. Most of them will not be
+defined in the Royal Spanish Academy dictionary. For that reason, words in this category 
+have been ignored.\\
 \end{itemize}
  
 The above described control mechanism has been used in order to prevent systematic 
@@ -959,11 +973,10 @@ precision mean among the studied phonetic algorithms in this work. Although that
 is relative to the dictionary of terms used for this experiment, it allows to compare
 the performance of phonetic algorithms to each other.\\
 
-Studied phonetic algorithms were designed for languages like: English, Slavic and 
-Yiddish. In this work they were applied to Mexican Spanish words and showed a 
-maximum measured precision close to 10\%. Future work should be done in order 
-to find a phonetic algorithm capable of achieving a higher precision for words in
-Mexican Spanish.\\
+Studied phonetic algorithms were designed for English, Slavic and  Yiddish languages. In 
+this work they were applied to Mexican Spanish words and showed a maximum measured 
+precision close to 10\%. Future work should be done in order to find a phonetic algorithm 
+capable of achieving a higher precision for words in Mexican Spanish.\\
 
 
 
@@ -972,7 +985,7 @@ Mexican Spanish.\\
 % ---- Bibliography ----
 %
 
-\bibliographystyle{abbrv}
+\bibliographystyle{IEEEtran}
 \bibliography{biblio}
 
 
